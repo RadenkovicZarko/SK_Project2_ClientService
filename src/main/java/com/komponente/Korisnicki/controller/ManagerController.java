@@ -1,11 +1,8 @@
 package com.komponente.Korisnicki.controller;
 
-import com.komponente.Korisnicki.dto.ClientCreateDto;
-import com.komponente.Korisnicki.dto.ClientDto;
-import com.komponente.Korisnicki.dto.TokenRequestDto;
-import com.komponente.Korisnicki.dto.TokenResponseDto;
+import com.komponente.Korisnicki.dto.*;
 import com.komponente.Korisnicki.security.CheckSecurity;
-import com.komponente.Korisnicki.service.ClientService;
+import com.komponente.Korisnicki.service.ManagerService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -17,16 +14,14 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-
 @RestController
-@RequestMapping("/client")
-public class ClientController {
+@RequestMapping("/manager")
+public class ManagerController {
 
-    private ClientService clientService;
+    private ManagerService managerService;
 
-    public ClientController(ClientService clientService)
-    {
-        this.clientService=clientService;
+    public ManagerController(ManagerService managerService) {
+        this.managerService = managerService;
     }
 
     @ApiOperation(value = "Get all users")
@@ -39,22 +34,21 @@ public class ClientController {
                             "Multiple sort criteria are supported.")})
     @GetMapping
     @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_USER"})
-    public ResponseEntity<Page<ClientDto>> getAllClients(@RequestHeader("Authorization") String authorization,
-                                                       Pageable pageable) {
+    public ResponseEntity<Page<ManagerDto>> getAllManagers(@RequestHeader("Authorization") String authorization,
+                                                        Pageable pageable) {
 
-        return new ResponseEntity<>(clientService.findAll(pageable), HttpStatus.OK);
+        return new ResponseEntity<>(managerService.findAll(pageable), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Register user")
     @PostMapping
-    public ResponseEntity<ClientDto> saveClient(@RequestBody @Valid ClientCreateDto userCreateDto) {
-        return new ResponseEntity<>(clientService.add(userCreateDto), HttpStatus.CREATED);
+    public ResponseEntity<ManagerDto> saveManager(@RequestBody @Valid ManagerCreateDto managerCreateDto) {
+        return new ResponseEntity<>(managerService.add(managerCreateDto), HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "Login")
     @PostMapping("/login")
-    public ResponseEntity<TokenResponseDto> loginClient(@RequestBody @Valid TokenRequestDto tokenRequestDto) {
-        return new ResponseEntity<>(clientService.login(tokenRequestDto), HttpStatus.OK);
+    public ResponseEntity<TokenResponseDto> loginManager(@RequestBody @Valid TokenRequestDto tokenRequestDto) {
+        return new ResponseEntity<>(managerService.login(tokenRequestDto), HttpStatus.OK);
     }
-
 }
