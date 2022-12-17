@@ -3,23 +3,22 @@ package com.komponente.Korisnicki.service.impl;
 import com.komponente.Korisnicki.dto.*;
 import com.komponente.Korisnicki.exception.NotFoundException;
 import com.komponente.Korisnicki.mapper.ClientMapper;
-import com.komponente.Korisnicki.mapper.UserMapper;
 import com.komponente.Korisnicki.model.Client;
 import com.komponente.Korisnicki.model.User;
 import com.komponente.Korisnicki.repository.ClientRepository;
-import com.komponente.Korisnicki.repository.UserRepository;
-import com.komponente.Korisnicki.service.ClientSevice;
+import com.komponente.Korisnicki.service.ClientService;
 import com.komponente.Korisnicki.service.TokenService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 @Transactional
-public class ClientServiceImpl implements ClientSevice {
+public class ClientServiceImpl implements ClientService {
 
     private TokenService tokenService;
     private ClientRepository clientRepository;

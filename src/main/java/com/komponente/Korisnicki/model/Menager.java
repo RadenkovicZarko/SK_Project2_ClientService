@@ -1,8 +1,6 @@
-package com.komponente.Korisnicki.model;
-
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-
+package com.komponente.Korisnicki.model;;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import java.util.Date;
 
 @Entity

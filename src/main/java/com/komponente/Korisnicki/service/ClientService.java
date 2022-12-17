@@ -7,7 +7,7 @@ import com.komponente.Korisnicki.dto.TokenResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface ClientSevice {
+public interface ClientService {
 
     Page<ClientDto> findAll(Pageable pageable);
 

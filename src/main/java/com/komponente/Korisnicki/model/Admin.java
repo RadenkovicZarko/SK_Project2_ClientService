@@ -1,9 +1,6 @@
 package com.komponente.Korisnicki.model;
-
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-
-import javax.jws.soap.SOAPBinding;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import java.util.Date;
 
 @Entity
