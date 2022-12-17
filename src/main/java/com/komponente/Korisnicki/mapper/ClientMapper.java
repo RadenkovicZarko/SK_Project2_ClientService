@@ -1,5 +1,6 @@
 package com.komponente.Korisnicki.mapper;
 
+import com.komponente.Korisnicki.dto.ClientChangeParametersDto;
 import com.komponente.Korisnicki.dto.ClientCreateDto;
 import com.komponente.Korisnicki.dto.ClientDto;
 import com.komponente.Korisnicki.model.Client;
@@ -28,6 +29,25 @@ public class ClientMapper {
         client.setPassportNo(clientCreateDto.getPassportNo());
         client.setNumberOfRentingDays(0);
         client.setForbidden(false);
+        client.setRank(0);
+
+        return client;
+    }
+
+    public Client clientChangeParametersDtoToClient(ClientChangeParametersDto clientChangeParametersDto)
+    {
+        Client client=new Client();
+        client.setEmail(clientChangeParametersDto.getEmail());
+        client.setFirstName(clientChangeParametersDto.getFirstName());
+        client.setLastName(clientChangeParametersDto.getLastName());
+        client.setUsername(clientChangeParametersDto.getUsername());
+        client.setPassword(clientChangeParametersDto.getPassword());
+        client.setDateOfBirth(clientChangeParametersDto.getDateOfBirth());
+        client.setContactNo(clientChangeParametersDto.getContactNo());
+        client.setRole(roleRepository.findRoleByName("ROLE_CLIENT").get());
+        client.setPassportNo(clientChangeParametersDto.getPassportNo());
+        client.setNumberOfRentingDays(0);
+        client.setForbidden(false);
 
         return client;
     }
@@ -40,6 +60,8 @@ public class ClientMapper {
         clientDto.setFirstName(client.getFirstName());
         clientDto.setLastName(client.getLastName());
         clientDto.setUsername(client.getUsername());
+        clientDto.setForbidden(client.isForbidden());
+        clientDto.setNumberOfRentingDays(client.getNumberOfRentingDays());
         return clientDto;
     }
 }

@@ -1,9 +1,7 @@
 package com.komponente.Korisnicki.controller;
 
-import com.komponente.Korisnicki.dto.ClientCreateDto;
-import com.komponente.Korisnicki.dto.ClientDto;
-import com.komponente.Korisnicki.dto.TokenRequestDto;
-import com.komponente.Korisnicki.dto.TokenResponseDto;
+import com.komponente.Korisnicki.dto.*;
+import com.komponente.Korisnicki.model.Client;
 import com.komponente.Korisnicki.security.CheckSecurity;
 import com.komponente.Korisnicki.service.ClientService;
 import io.swagger.annotations.ApiImplicitParam;
@@ -37,6 +35,7 @@ public class ClientController {
                     value = "Sorting criteria in the format: property(,asc|desc). " +
                             "Default sort order is ascending. " +
                             "Multiple sort criteria are supported.")})
+
     @GetMapping
     @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_USER"})
     public ResponseEntity<Page<ClientDto>> getAllClients(@RequestHeader("Authorization") String authorization,
@@ -53,7 +52,29 @@ public class ClientController {
     @ApiOperation(value = "Login")
     @PostMapping("/login")
     public ResponseEntity<TokenResponseDto> loginClient(@RequestBody @Valid TokenRequestDto tokenRequestDto) {
-        return new ResponseEntity<>(clientService.login(tokenRequestDto), HttpStatus.OK);
+        ClientDto clientDto=clientService.find(tokenRequestDto);
+        if(!clientDto.isForbidden())
+            return new ResponseEntity<>(clientService.login(tokenRequestDto), HttpStatus.OK);
+        else
+            return new ResponseEntity<>(null,HttpStatus.OK);
     }
+
+    @GetMapping("/discount")
+    public ResponseEntity<DiscountDto> getDiscount(@RequestHeader("id") String id)
+    {
+        return new ResponseEntity<>(clientService.findDiscont(id),HttpStatus.OK);
+    }
+
+
+
+    //PRIMA DVA PARAMETRA, NE ZNAM KAKO DA JOJ PROSLEDIM OBA U POSTMANU
+    @ApiOperation(value = "Change")
+    @PostMapping("/change")
+    public ResponseEntity<ClientDto> updateClient(@RequestParam("clientChangeParametersDto") @Valid ClientChangeParametersDto clientChangeParametersDto, @RequestParam("token") String token) {
+        return new ResponseEntity<>(clientService.update(clientChangeParametersDto,token), HttpStatus.OK);
+    }
+
+
+
 
 }

@@ -7,6 +7,8 @@ public class ClientDto {
     private String firstName;
     private String lastName;
     private String username;
+    private boolean forbidden;
+    private int numberOfRentingDays;
 
     public Long getId() {
         return id;
@@ -46,5 +48,21 @@ public class ClientDto {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public boolean isForbidden() {
+        return forbidden;
+    }
+
+    public void setForbidden(boolean forbidden) {
+        this.forbidden = forbidden;
+    }
+
+    public int getNumberOfRentingDays() {
+        return numberOfRentingDays;
+    }
+
+    public void setNumberOfRentingDays(int numberOfRentingDays) {
+        this.numberOfRentingDays = numberOfRentingDays;
     }
 }

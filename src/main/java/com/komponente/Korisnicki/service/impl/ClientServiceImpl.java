@@ -58,4 +58,46 @@ public class ClientServiceImpl implements ClientService {
         //Generate token
         return new TokenResponseDto(tokenService.generate(claims));
     }
+
+    @Override
+    public ClientDto find(TokenRequestDto tokenRequestDto) {
+        Client client = clientRepository
+                .findClientByUsernameAndPassword(tokenRequestDto.getUsername(), tokenRequestDto.getPassword())
+                .orElseThrow(() -> new NotFoundException(String
+                        .format("Client with username: %s and password: %s not found.", tokenRequestDto.getUsername(),
+                                tokenRequestDto.getPassword())));
+        return clientMapper.clientToClientDto(client);
+    }
+
+
+    //KADA SE ULOGUJE KORISNIK, SACUVA NJEGOV TOKEN U NEKOJ PROMENLJIVOJ NA FRONTU, KADA HOCE NESTO DA PROMENI ONDA PROSLEDJUJEM NJEGOV TOKEN I TO STO ZELI DA PROMENI, MORA MALO DA SE POPRAVI
+    @Override
+    public ClientDto update(ClientChangeParametersDto clientChangeParametersDto, String token) {
+        Client client= clientMapper.clientChangeParametersDtoToClient(clientChangeParametersDto);
+
+        Claims c=tokenService.parseToken(token);
+        clientRepository.setUserInfoById(client.getFirstName(),client.getLastName(),
+                Integer.parseInt(c.getId()));
+        Client client1 = clientRepository.findById(Long.parseLong(c.getId())).orElseThrow(() -> new NotFoundException(String
+                .format("Client not found")));
+        return clientMapper.clientToClientDto(client1);
+    }
+
+    @Override
+    public DiscountDto findDiscont(String token) {
+        Claims c=tokenService.parseToken(token);
+        Client client1 = clientRepository.findById(Long.parseLong(c.getId())).orElseThrow(() -> new NotFoundException(String
+                .format("Client not found")));
+        if(client1.getRank()==1)
+            return new DiscountDto(10);
+        else if(client1.getRank()==2)
+            return new DiscountDto(20);
+        else if(client1.getRank()==3)
+            return new DiscountDto(30);
+        else
+            return new DiscountDto(0);
+    }
+
+
 }
+
