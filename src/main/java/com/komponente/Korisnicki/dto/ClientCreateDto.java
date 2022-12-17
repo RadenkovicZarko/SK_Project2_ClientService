@@ -1,18 +1,27 @@
 package com.komponente.Korisnicki.dto;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import java.util.Date;
 
+public class ClientCreateDto {
 
-public class UserCreateDto {
-
+    @Email
     private String email;
-
+    @NotBlank
     private String firstName;
-
+    @NotBlank
     private String lastName;
-
+    @NotBlank
     private String username;
-
+    //@Length()
     private String password;
+    @NotBlank
+    private Date dateOfBirth;
+    @NotBlank
+    private String contactNo;
+    @NotBlank
+    private Long passportNo;
 
     public String getEmail() {
         return email;
@@ -52,5 +61,29 @@ public class UserCreateDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getContactNo() {
+        return contactNo;
+    }
+
+    public void setContactNo(String contactNo) {
+        this.contactNo = contactNo;
+    }
+
+    public Long getPassportNo() {
+        return passportNo;
+    }
+
+    public void setPassportNo(Long passportNo) {
+        this.passportNo = passportNo;
     }
 }

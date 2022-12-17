@@ -1,6 +1,7 @@
 package com.komponente.Korisnicki.dto;
 
-public class UserDto {
+public class ClientDto {
+
     private Long id;
     private String email;
     private String firstName;

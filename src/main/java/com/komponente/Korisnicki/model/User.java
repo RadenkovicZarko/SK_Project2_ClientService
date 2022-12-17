@@ -3,7 +3,11 @@ package com.komponente.Korisnicki.model;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING, name = "UserType")
 @Table(indexes = {@Index(columnList = "username", unique = true), @Index(columnList = "email", unique = true)})
 public class User {
     @Id
@@ -14,10 +18,24 @@ public class User {
     private String lastName;
     private String username;
     private String password;
-
+    private Date dateOfBirth;
+    private String contactNo;
     @ManyToOne(optional = false)
     private Role role;
 
+    public User() {
+    }
+
+    public User( String email, String firstName, String lastName, String username, String password, Date dateOfBirth, String contactNo, Role role) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.dateOfBirth = dateOfBirth;
+        this.contactNo = contactNo;
+        this.role = role;
+    }
 
     public Long getId() {
         return id;
@@ -73,5 +91,21 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getContactNo() {
+        return contactNo;
+    }
+
+    public void setContactNo(String contactNo) {
+        this.contactNo = contactNo;
     }
 }
