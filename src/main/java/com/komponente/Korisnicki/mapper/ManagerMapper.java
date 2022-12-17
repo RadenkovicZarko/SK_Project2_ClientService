@@ -31,6 +31,7 @@ public class ManagerMapper {
         manager.setRole(roleRepository.findRoleByName("ROLE_MANAGER").get());
         manager.setNameOfCompany(managerCreateDto.getNameOfCompany());
         manager.setDateOfEmployment(managerCreateDto.getDateOfEmployment());
+        manager.setForbidden(false);
         return manager;
     }
 

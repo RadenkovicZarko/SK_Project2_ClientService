@@ -10,16 +10,18 @@ import java.util.Date;
 public class Client extends User{
     private Long passportNo;
     private int numberOfRentingDays;
+    private boolean forbidden;
 
     public Client() {
         super();
     }
 
-    public Client(Long passportNo, int numberOfRentingDays,  String email, String firstName, String lastName,
+    public Client(Long passportNo, int numberOfRentingDays, boolean forbidden,  String email, String firstName, String lastName,
                   String username, String password, String dateOfBirth, String contactNo, Role role) {
         super(email,firstName,lastName,username, password, dateOfBirth,contactNo,role);
         this.passportNo = passportNo;
         this.numberOfRentingDays = numberOfRentingDays;
+        this.forbidden=forbidden;
     }
 
     public Long getPassportNo() {
@@ -36,5 +38,13 @@ public class Client extends User{
 
     public void setNumberOfRentingDays(int numberOfRentingDays) {
         this.numberOfRentingDays = numberOfRentingDays;
+    }
+
+    public boolean isForbidden() {
+        return forbidden;
+    }
+
+    public void setForbidden(boolean forbidden) {
+        this.forbidden = forbidden;
     }
 }

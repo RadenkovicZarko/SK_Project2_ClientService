@@ -8,17 +8,19 @@ import java.util.Date;
 public class Manager extends User{
     private String nameOfCompany;
     private String dateOfEmployment;
+    private boolean forbidden;
 
 
     public Manager() {
         super();
     }
 
-    public Manager(String nameOfCompany, String dateOfEmployment, String email, String firstName, String lastName,
+    public Manager(String nameOfCompany, String dateOfEmployment,boolean forbidden, String email, String firstName, String lastName,
                    String username, String password, String dateOfBirth, String contactNo, Role role) {
         super(email,firstName,lastName,username, password, dateOfBirth,contactNo,role);
         this.nameOfCompany=nameOfCompany;
         this.dateOfEmployment=dateOfEmployment;
+        this.forbidden=forbidden;
     }
 
     public String getNameOfCompany() {
@@ -35,5 +37,13 @@ public class Manager extends User{
 
     public void setDateOfEmployment(String dateOfEmployment) {
         this.dateOfEmployment = dateOfEmployment;
+    }
+
+    public boolean isForbidden() {
+        return forbidden;
+    }
+
+    public void setForbidden(boolean forbidden) {
+        this.forbidden = forbidden;
     }
 }

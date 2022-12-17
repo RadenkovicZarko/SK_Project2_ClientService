@@ -41,7 +41,6 @@ public class ClientController {
     @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_USER"})
     public ResponseEntity<Page<ClientDto>> getAllClients(@RequestHeader("Authorization") String authorization,
                                                        Pageable pageable) {
-
         return new ResponseEntity<>(clientService.findAll(pageable), HttpStatus.OK);
     }
 

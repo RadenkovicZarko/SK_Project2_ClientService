@@ -27,6 +27,7 @@ public class ClientMapper {
         client.setRole(roleRepository.findRoleByName("ROLE_CLIENT").get());
         client.setPassportNo(clientCreateDto.getPassportNo());
         client.setNumberOfRentingDays(0);
+        client.setForbidden(false);
 
         return client;
     }
