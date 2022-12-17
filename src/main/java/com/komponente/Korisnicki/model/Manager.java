@@ -5,17 +5,17 @@ import java.util.Date;
 
 @Entity
 @DiscriminatorValue("Menager")
-public class Menager extends User{
+public class Manager extends User{
     private String nameOfCompany;
-    private Date dateOfEmployment;
+    private String dateOfEmployment;
 
 
-    public Menager() {
+    public Manager() {
         super();
     }
 
-    public Menager(String nameOfCompany, Date dateOfEmployment, String email, String firstName, String lastName,
-                  String username, String password, Date dateOfBirth, String contactNo, Role role) {
+    public Manager(String nameOfCompany, String dateOfEmployment, String email, String firstName, String lastName,
+                   String username, String password, String dateOfBirth, String contactNo, Role role) {
         super(email,firstName,lastName,username, password, dateOfBirth,contactNo,role);
         this.nameOfCompany=nameOfCompany;
         this.dateOfEmployment=dateOfEmployment;
@@ -29,11 +29,11 @@ public class Menager extends User{
         this.nameOfCompany = nameOfCompany;
     }
 
-    public Date getDateOfEmployment() {
+    public String getDateOfEmployment() {
         return dateOfEmployment;
     }
 
-    public void setDateOfEmployment(Date dateOfEmployment) {
+    public void setDateOfEmployment(String dateOfEmployment) {
         this.dateOfEmployment = dateOfEmployment;
     }
 }

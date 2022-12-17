@@ -46,15 +46,15 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public TokenResponseDto login(TokenRequestDto tokenRequestDto) {
         //Try to find active user for specified credentials
-        User user = clientRepository
+        Client client = clientRepository
                 .findClientByUsernameAndPassword(tokenRequestDto.getUsername(), tokenRequestDto.getPassword())
                 .orElseThrow(() -> new NotFoundException(String
-                        .format("User with username: %s and password: %s not found.", tokenRequestDto.getUsername(),
+                        .format("Client with username: %s and password: %s not found.", tokenRequestDto.getUsername(),
                                 tokenRequestDto.getPassword())));
         //Create token payload
         Claims claims = Jwts.claims();
-        claims.put("id", user.getId());
-        claims.put("role", user.getRole().getName());
+        claims.put("id", client.getId());
+        claims.put("role", client.getRole().getName());
         //Generate token
         return new TokenResponseDto(tokenService.generate(claims));
     }

@@ -2,9 +2,8 @@ package com.komponente.Korisnicki.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.util.Date;
 
-public class ClientCreateDto {
+public class ManagerCreateDto {
 
     @Email
     private String email;
@@ -19,9 +18,19 @@ public class ClientCreateDto {
     @NotBlank
     private String dateOfBirth;
     @NotBlank
-    private String contactNo;
+    private String nameOfCompany;
     @NotBlank
-    private Long passportNo;
+    private String dateOfEmployment;
+    @NotBlank
+    private String contactNo;
+
+    public String getContactNo() {
+        return contactNo;
+    }
+
+    public void setContactNo(String contactNo) {
+        this.contactNo = contactNo;
+    }
 
     public String getEmail() {
         return email;
@@ -71,19 +80,19 @@ public class ClientCreateDto {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getContactNo() {
-        return contactNo;
+    public String getNameOfCompany() {
+        return nameOfCompany;
     }
 
-    public void setContactNo(String contactNo) {
-        this.contactNo = contactNo;
+    public void setNameOfCompany(String nameOfCompany) {
+        this.nameOfCompany = nameOfCompany;
     }
 
-    public Long getPassportNo() {
-        return passportNo;
+    public String getDateOfEmployment() {
+        return dateOfEmployment;
     }
 
-    public void setPassportNo(Long passportNo) {
-        this.passportNo = passportNo;
+    public void setDateOfEmployment(String dateOfEmployment) {
+        this.dateOfEmployment = dateOfEmployment;
     }
 }
