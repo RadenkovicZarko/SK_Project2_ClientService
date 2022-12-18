@@ -72,13 +72,33 @@ public class ClientServiceImpl implements ClientService {
 
     //KADA SE ULOGUJE KORISNIK, SACUVA NJEGOV TOKEN U NEKOJ PROMENLJIVOJ NA FRONTU, KADA HOCE NESTO DA PROMENI ONDA PROSLEDJUJEM NJEGOV TOKEN I TO STO ZELI DA PROMENI, MORA MALO DA SE POPRAVI
     @Override
-    public ClientDto update(ClientChangeParametersDto clientChangeParametersDto, String token) {
+    public ClientDto update(ClientChangeParametersDto clientChangeParametersDto) {
         Client client= clientMapper.clientChangeParametersDtoToClient(clientChangeParametersDto);
+        Claims c=tokenService.parseToken(clientChangeParametersDto.getToken());
 
-        Claims c=tokenService.parseToken(token);
-        clientRepository.setUserInfoById(client.getFirstName(),client.getLastName(),
-                Integer.parseInt(c.getId()));
-        Client client1 = clientRepository.findById(Long.parseLong(c.getId())).orElseThrow(() -> new NotFoundException(String
+        Client client1 = clientRepository.findById(new Long(c.get("id").toString())).orElseThrow(() -> new NotFoundException(String
+                .format("Client not found")));
+
+        if(!client.getFirstName().isEmpty() && !client.getFirstName().equals(""))
+            clientRepository.setClientFirstNameById(client.getFirstName(),c.get("id").toString());
+        if(!client.getLastName().isEmpty() && !client.getLastName().equals(""))
+            clientRepository.setClientLastNameById(client.getLastName(),c.get("id").toString());
+        if(!client.getEmail().isEmpty() && !client.getEmail().equals(""))
+            clientRepository.setClientEmailById(client.getEmail(),c.get("id").toString());
+        if(!client.getPassword().isEmpty() && !client.getPassword().equals(""))
+            clientRepository.setClientPasswordById(client.getPassword(),c.get("id").toString());
+        if(!client.getDateOfBirth().isEmpty() && !client.getDateOfBirth().equals(""))
+            clientRepository.setClientDateOfBirthById(client.getDateOfBirth(),c.get("id").toString());
+        if(!client.getContactNo().isEmpty() && !client.getContactNo().equals(""))
+            clientRepository.setClientContactNoById(client.getContactNo(),c.get("id").toString());
+        if(client.getPassportNo()!=0)
+            clientRepository.setClientPassportNoById(client.getPassportNo().toString(),c.get("id").toString());
+        if(client.getNumberOfRentingDays()!=0)
+        {
+            clientRepository.setClientNumberOfRentingDaysById(String.valueOf(client.getPassportNo()+client1.getNumberOfRentingDays()),c.get("id").toString());
+        }
+
+        client1 = clientRepository.findById(new Long(c.get("id").toString())).orElseThrow(() -> new NotFoundException(String
                 .format("Client not found")));
         return clientMapper.clientToClientDto(client1);
     }

@@ -70,11 +70,8 @@ public class ClientController {
     //PRIMA DVA PARAMETRA, NE ZNAM KAKO DA JOJ PROSLEDIM OBA U POSTMANU
     @ApiOperation(value = "Change")
     @PostMapping("/change")
-    public ResponseEntity<ClientDto> updateClient(@RequestParam("clientChangeParametersDto") @Valid ClientChangeParametersDto clientChangeParametersDto, @RequestParam("token") String token) {
-        return new ResponseEntity<>(clientService.update(clientChangeParametersDto,token), HttpStatus.OK);
+    public ResponseEntity<ClientDto> updateClient(@RequestBody() @Valid ClientChangeParametersDto clientChangeParametersDto) {
+        return new ResponseEntity<>(clientService.update(clientChangeParametersDto), HttpStatus.OK);
     }
-
-
-
 
 }

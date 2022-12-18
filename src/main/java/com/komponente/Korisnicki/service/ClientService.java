@@ -14,7 +14,7 @@ public interface ClientService {
 
     ClientDto find(TokenRequestDto tokenRequestDto);
 
-    ClientDto update(ClientChangeParametersDto clientChangeParametersDto,String token);
+    ClientDto update(ClientChangeParametersDto clientChangeParametersDto);
 
     DiscountDto findDiscont(String token);
 }

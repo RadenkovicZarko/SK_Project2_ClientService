@@ -4,6 +4,9 @@ import javax.validation.constraints.NotBlank;
 
 public class ClientChangeParametersDto {
 
+    @NotBlank
+    private String token;
+
     private String email;
 
     private String firstName;
@@ -82,5 +85,13 @@ public class ClientChangeParametersDto {
 
     public void setPassportNo(Long passportNo) {
         this.passportNo = passportNo;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
