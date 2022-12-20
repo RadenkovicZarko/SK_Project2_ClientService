@@ -11,19 +11,17 @@ public class Client extends User{
     private Long passportNo;
     private int numberOfRentingDays;
     private boolean forbidden;
-    private int rank;
 
     public Client() {
         super();
     }
 
-    public Client(Long passportNo, int numberOfRentingDays, boolean forbidden,int rank,  String email, String firstName, String lastName,
+    public Client(Long passportNo, int numberOfRentingDays, boolean forbidden,  String email, String firstName, String lastName,
                   String username, String password, String dateOfBirth, String contactNo, Role role) {
         super(email,firstName,lastName,username, password, dateOfBirth,contactNo,role);
         this.passportNo = passportNo;
         this.numberOfRentingDays = numberOfRentingDays;
         this.forbidden=forbidden;
-        this.rank=rank;
     }
 
     public Long getPassportNo() {
@@ -50,13 +48,6 @@ public class Client extends User{
         this.forbidden = forbidden;
     }
 
-    public int getRank() {
-        return rank;
-    }
-
-    public void setRank(int rank) {
-        this.rank = rank;
-    }
 
     @Override
     public String toString() {

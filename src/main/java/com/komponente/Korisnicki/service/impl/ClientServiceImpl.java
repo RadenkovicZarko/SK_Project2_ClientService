@@ -87,20 +87,20 @@ public class ClientServiceImpl implements ClientService {
         return clientMapper.clientToClientDto(client1);
     }
 
-    @Override
-    public DiscountDto findDiscont(String token) {
-        Claims c=tokenService.parseToken(token);
-        Client client1 = clientRepository.findById(Long.parseLong(c.getId())).orElseThrow(() -> new NotFoundException(String
-                .format("Client not found")));
-        if(client1.getRank()==1)
-            return new DiscountDto(10);
-        else if(client1.getRank()==2)
-            return new DiscountDto(20);
-        else if(client1.getRank()==3)
-            return new DiscountDto(30);
-        else
-            return new DiscountDto(0);
-    }
+//    @Override
+//    public DiscountDto findDiscont(String token) {
+//        Claims c=tokenService.parseToken(token);
+//        Client client1 = clientRepository.findById(Long.parseLong(c.getId())).orElseThrow(() -> new NotFoundException(String
+//                .format("Client not found")));
+//        if(client1.getRank()==1)
+//            return new DiscountDto(10);
+//        else if(client1.getRank()==2)
+//            return new DiscountDto(20);
+//        else if(client1.getRank()==3)
+//            return new DiscountDto(30);
+//        else
+//            return new DiscountDto(0);
+//    }
 
 
 }
