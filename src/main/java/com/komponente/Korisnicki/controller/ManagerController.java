@@ -36,7 +36,6 @@ public class ManagerController {
     @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_USER"})
     public ResponseEntity<Page<ManagerDto>> getAllManagers(@RequestHeader("Authorization") String authorization,
                                                         Pageable pageable) {
-
         return new ResponseEntity<>(managerService.findAll(pageable), HttpStatus.OK);
     }
 
@@ -46,9 +45,4 @@ public class ManagerController {
         return new ResponseEntity<>(managerService.add(managerCreateDto), HttpStatus.CREATED);
     }
 
-    @ApiOperation(value = "Login")
-    @PostMapping("/login")
-    public ResponseEntity<TokenResponseDto> loginManager(@RequestBody @Valid TokenRequestDto tokenRequestDto) {
-        return new ResponseEntity<>(managerService.login(tokenRequestDto), HttpStatus.OK);
-    }
 }

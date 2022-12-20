@@ -37,7 +37,7 @@ public class ClientController {
                             "Multiple sort criteria are supported.")})
 
     @GetMapping
-    @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_USER"})
+    @CheckSecurity(roles = {"ROLE_CLIENT"})
     public ResponseEntity<Page<ClientDto>> getAllClients(@RequestHeader("Authorization") String authorization,
                                                        Pageable pageable) {
         return new ResponseEntity<>(clientService.findAll(pageable), HttpStatus.OK);
@@ -45,19 +45,11 @@ public class ClientController {
 
     @ApiOperation(value = "Register user")
     @PostMapping
+    @CheckSecurity(roles = {"ROLE_CLIENT"})
     public ResponseEntity<ClientDto> saveClient(@RequestBody @Valid ClientCreateDto userCreateDto) {
         return new ResponseEntity<>(clientService.add(userCreateDto), HttpStatus.CREATED);
     }
 
-    @ApiOperation(value = "Login")
-    @PostMapping("/login")
-    public ResponseEntity<TokenResponseDto> loginClient(@RequestBody @Valid TokenRequestDto tokenRequestDto) {
-        ClientDto clientDto=clientService.find(tokenRequestDto);
-        if(!clientDto.isForbidden())
-            return new ResponseEntity<>(clientService.login(tokenRequestDto), HttpStatus.OK);
-        else
-            return new ResponseEntity<>(null,HttpStatus.OK);
-    }
 
     @GetMapping("/discount")
     public ResponseEntity<DiscountDto> getDiscount(@RequestHeader("id") String id)
@@ -70,6 +62,7 @@ public class ClientController {
     //PRIMA DVA PARAMETRA, NE ZNAM KAKO DA JOJ PROSLEDIM OBA U POSTMANU
     @ApiOperation(value = "Change")
     @PostMapping("/change")
+    @CheckSecurity(roles = {"ROLE_CLIENT"})
     public ResponseEntity<ClientDto> updateClient(@RequestBody() @Valid ClientChangeParametersDto clientChangeParametersDto) {
         return new ResponseEntity<>(clientService.update(clientChangeParametersDto), HttpStatus.OK);
     }

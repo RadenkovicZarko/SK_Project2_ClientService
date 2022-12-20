@@ -41,19 +41,4 @@ public class ManagerServiceImpl implements ManagerService {
         return  managerMapper.clientToClientDto(manager);
     }
 
-    @Override
-    public TokenResponseDto login(TokenRequestDto tokenRequestDto) {
-        //Try to find active user for specified credentials
-        Manager manager = managerRepository
-                .findManagerByUsernameAndPassword(tokenRequestDto.getUsername(), tokenRequestDto.getPassword())
-                .orElseThrow(() -> new NotFoundException(String
-                        .format("Manager with username: %s and password: %s not found.", tokenRequestDto.getUsername(),
-                                tokenRequestDto.getPassword())));
-        //Create token payload
-        Claims claims = Jwts.claims();
-        claims.put("id", manager.getId());
-        claims.put("role", manager.getRole().getName());
-        //Generate token
-        return new TokenResponseDto(tokenService.generate(claims));
-    }
 }

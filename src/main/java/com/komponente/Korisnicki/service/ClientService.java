@@ -10,8 +10,6 @@ public interface ClientService {
 
     ClientDto add(ClientCreateDto userCreateDto);
 
-    TokenResponseDto login(TokenRequestDto tokenRequestDto);
-
     ClientDto find(TokenRequestDto tokenRequestDto);
 
     ClientDto update(ClientChangeParametersDto clientChangeParametersDto);
