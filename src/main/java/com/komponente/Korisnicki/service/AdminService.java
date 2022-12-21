@@ -1,13 +1,10 @@
 package com.komponente.Korisnicki.service;
 
-import com.komponente.Korisnicki.dto.DiscountDto;
-import com.komponente.Korisnicki.model.Client;
-import com.komponente.Korisnicki.repository.RankRepository;
-import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
+import com.komponente.Korisnicki.dto.*;
 
-import java.util.List;
 
 public interface AdminService {
-    DiscountDto findDiscount(Long id);
 
+    RankDto add(RankDto rankCreateDto);
+    ClientDto updateForbiden(ClientForbidenDto clientForbidenDto);
 }

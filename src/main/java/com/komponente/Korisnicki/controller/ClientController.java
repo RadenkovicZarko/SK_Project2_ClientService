@@ -51,14 +51,6 @@ public class ClientController {
     }
 
 
-    @GetMapping("/discount")
-    public ResponseEntity<DiscountDto> getDiscount(@RequestHeader("id") String id)
-    {
-        return new ResponseEntity<>(clientService.findDiscont(id),HttpStatus.OK);
-    }
-
-
-
     //PRIMA DVA PARAMETRA, NE ZNAM KAKO DA JOJ PROSLEDIM OBA U POSTMANU
     @ApiOperation(value = "Change")
     @PostMapping("/change")

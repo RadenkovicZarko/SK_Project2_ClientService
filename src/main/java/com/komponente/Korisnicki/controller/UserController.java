@@ -2,16 +2,14 @@ package com.komponente.Korisnicki.controller;
 
 
 import com.komponente.Korisnicki.dto.ClientDto;
+import com.komponente.Korisnicki.dto.DiscountDto;
 import com.komponente.Korisnicki.dto.TokenRequestDto;
 import com.komponente.Korisnicki.dto.TokenResponseDto;
 import com.komponente.Korisnicki.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -29,6 +27,12 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<TokenResponseDto> loginUser(@RequestBody @Valid TokenRequestDto tokenRequestDto) {
         return new ResponseEntity<>(userService.login(tokenRequestDto), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "Find discount")
+    @GetMapping("/{id}/discount")
+    public ResponseEntity<DiscountDto> getDiscount(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(userService.findDiscount(id), HttpStatus.OK);
     }
 
 }

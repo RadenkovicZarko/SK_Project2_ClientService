@@ -1,26 +1,17 @@
-package com.komponente.Korisnicki.model;
+package com.komponente.Korisnicki.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
-public class Rank {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class RankDto {
     private Long id;
     private Integer minNumberOfRentingDays;
     private Integer maxNumberOfRentingDays;
     private Integer discount;
 
+    public Long getId() {
+        return id;
+    }
 
-    public Rank(Long id, Integer minNumberOfRentingDays, Integer maxNumberOfRentingDays, Integer discount) {
+    public void setId(Long id) {
         this.id = id;
-        this.minNumberOfRentingDays = minNumberOfRentingDays;
-        this.maxNumberOfRentingDays = maxNumberOfRentingDays;
-        this.discount = discount;
     }
 
     public Integer getMinNumberOfRentingDays() {
@@ -38,15 +29,6 @@ public class Rank {
     public void setMaxNumberOfRentingDays(Integer maxNumberOfRentingDays) {
         this.maxNumberOfRentingDays = maxNumberOfRentingDays;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
 
     public Integer getDiscount() {
         return discount;

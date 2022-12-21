@@ -1,45 +1,39 @@
 package com.komponente.Korisnicki.service.impl;
-import com.komponente.Korisnicki.dto.DiscountDto;
+import com.komponente.Korisnicki.dto.ClientDto;
+import com.komponente.Korisnicki.dto.ClientForbidenDto;
+import com.komponente.Korisnicki.dto.RankDto;
 import com.komponente.Korisnicki.exception.NotFoundException;
+import com.komponente.Korisnicki.mapper.ClientMapper;
+import com.komponente.Korisnicki.mapper.RankMapper;
 import com.komponente.Korisnicki.model.Client;
-import com.komponente.Korisnicki.model.Rank;
+import com.komponente.Korisnicki.model.ClientRank;
 import com.komponente.Korisnicki.repository.ClientRepository;
-import com.komponente.Korisnicki.repository.RankRepository;
+import com.komponente.Korisnicki.repository.ClientRankRepository;
 import com.komponente.Korisnicki.service.AdminService;
-import com.komponente.Korisnicki.service.ClientService;
-import com.komponente.Korisnicki.service.TokenService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional
 public class AdminServiceImpl implements AdminService {
-    private ClientRepository clientRepository;
-    private TokenService tokenService;
-    private RankRepository rankRepository;
+    ClientRepository clientRepository;
+    ClientMapper clientMapper;
+    ClientRankRepository clientRankRepository;
+    RankMapper rankMapper;
 
-    public AdminServiceImpl(ClientRepository clientRepository, TokenService tokenService, RankRepository rankRepository) {
-        this.clientRepository = clientRepository;
-        this.tokenService = tokenService;
-        this.rankRepository = rankRepository;
+    @Override
+    public RankDto add(RankDto rankCreateDto) {
+        ClientRank clientRank =rankMapper.rankDtoToRank(rankCreateDto);
+        clientRankRepository.save(clientRank);
+        return rankCreateDto;
     }
 
     @Override
-    public DiscountDto findDiscount(Long id) {
-        Client client = clientRepository
-                .findById(id)
-                .orElseThrow(() -> new NotFoundException(String
-                        .format("User with id: %d not found.", id)));
-        List<Rank> userStatusList = rankRepository.findAll();
-        //get discount
-        Integer discount = userStatusList.stream()
-                .filter(userStatus -> userStatus.getMaxNumberOfRentingDays() >= client.getNumberOfRentingDays()
-                        && userStatus.getMinNumberOfRentingDays() <= client.getNumberOfRentingDays())
-                .findAny()
-                .get()
-                .getDiscount();
-        return new DiscountDto(discount);
+    public ClientDto updateForbiden(ClientForbidenDto clientForbidenDto) {
+        Client client=clientRepository.findById(clientForbidenDto.getId()).orElseThrow(() -> new NotFoundException(String
+                .format("Client not found.")));
+        int forbidden=clientForbidenDto.isForbidden()?1:0;
+        clientRepository.setClientForbiddenById(String.valueOf(clientForbidenDto.getId()),String.valueOf(forbidden));
+        return clientMapper.clientToClientDto(client);
     }
 }

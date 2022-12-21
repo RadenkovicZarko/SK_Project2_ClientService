@@ -29,7 +29,6 @@ public class ClientMapper {
         client.setPassportNo(clientCreateDto.getPassportNo());
         client.setNumberOfRentingDays(0);
         client.setForbidden(false);
-        client.setRank(0);
 
         return client;
     }
