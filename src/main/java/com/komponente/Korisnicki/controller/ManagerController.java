@@ -33,13 +33,13 @@ public class ManagerController {
                             "Default sort order is ascending. " +
                             "Multiple sort criteria are supported.")})
     @GetMapping
-    @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_USER"})
+    @CheckSecurity(roles = {"ROLE_ADMIN", "ROLE_MANAGER"})
     public ResponseEntity<Page<ManagerDto>> getAllManagers(@RequestHeader("Authorization") String authorization,
                                                         Pageable pageable) {
         return new ResponseEntity<>(managerService.findAll(pageable), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Register user")
+    @ApiOperation(value = "Register manager")
     @PostMapping
     public ResponseEntity<ManagerDto> saveManager(@RequestBody @Valid ManagerCreateDto managerCreateDto) {
         return new ResponseEntity<>(managerService.add(managerCreateDto), HttpStatus.CREATED);

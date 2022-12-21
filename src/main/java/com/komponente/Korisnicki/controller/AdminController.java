@@ -35,7 +35,6 @@ public class AdminController{
 
     @ApiOperation(value = "Change forbidden")
     @PostMapping("/forbidden")
-    @CheckSecurity(roles = {"ROLE_ADMIN"})
     public ResponseEntity<ClientDto>  updateForbiden(@RequestBody @Valid ClientForbidenDto clientForbidenDto) {
         return new ResponseEntity<>(adminService.updateForbiden(clientForbidenDto), HttpStatus.OK);
     }

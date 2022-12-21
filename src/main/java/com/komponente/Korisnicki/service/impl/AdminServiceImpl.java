@@ -21,6 +21,13 @@ public class AdminServiceImpl implements AdminService {
     ClientRankRepository clientRankRepository;
     RankMapper rankMapper;
 
+    public AdminServiceImpl(ClientRepository clientRepository, ClientMapper clientMapper, ClientRankRepository clientRankRepository, RankMapper rankMapper) {
+        this.clientRepository = clientRepository;
+        this.clientMapper = clientMapper;
+        this.clientRankRepository = clientRankRepository;
+        this.rankMapper = rankMapper;
+    }
+
     @Override
     public RankDto add(RankDto rankCreateDto) {
         ClientRank clientRank =rankMapper.rankDtoToRank(rankCreateDto);
@@ -32,8 +39,8 @@ public class AdminServiceImpl implements AdminService {
     public ClientDto updateForbiden(ClientForbidenDto clientForbidenDto) {
         Client client=clientRepository.findById(clientForbidenDto.getId()).orElseThrow(() -> new NotFoundException(String
                 .format("Client not found.")));
-        int forbidden=clientForbidenDto.isForbidden()?1:0;
-        clientRepository.setClientForbiddenById(String.valueOf(clientForbidenDto.getId()),String.valueOf(forbidden));
+        System.out.println(String.valueOf(clientForbidenDto.getId())+"  "+String.valueOf(client.isForbidden()));
+        clientRepository.setClientForbiddenById(String.valueOf(client.isForbidden()),String.valueOf(clientForbidenDto.getId()));
         return clientMapper.clientToClientDto(client);
     }
 }

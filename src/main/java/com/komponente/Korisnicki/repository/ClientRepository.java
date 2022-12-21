@@ -17,33 +17,39 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     //METODA RADI  UPDATE imena prezimena ZA ODREDJENI ID, VIDETI KAKO DA SE NAPRAVI UPDATE SAMO ZA ELEMENTE KOJI NISU NULL
     @Modifying
-    @Query(value = "update user u set u.first_name = ?1 where u.id = ?2", nativeQuery = true)
-    void setClientFirstNameById(String firstname,  String userId);
+    @Query(value = "update user u set u.first_name = ?1, u.last_name = ?2,u.email = ?3,u.password = ?4,u.date_of_birth = ?5,u.contact_no = ?6,u.passport_no = ?7 where u.id = ?8", nativeQuery = true)
+    void setClientParametersById(String firstname,String lastname,String email,String password,String dateOfBirth,String contactNo,String passportNo,  String userId);
 
-    @Modifying
-    @Query(value = "update user u set u.last_name = ?1 where u.id = ?2", nativeQuery = true)
-    void setClientLastNameById(String lastname,  String userId);
 
-    @Modifying
-    @Query(value = "update user u set u.email = ?1 where u.id = ?2", nativeQuery = true)
-    void setClientEmailById(String email,  String userId);
 
-    @Modifying
-    @Query(value = "update user u set u.password = ?1 where u.id = ?2", nativeQuery = true)
-    void setClientPasswordById(String password,  String userId);
-
-    @Modifying
-    @Query(value = "update user u set u.date_of_birth = ?1 where u.id = ?2", nativeQuery = true)
-    void setClientDateOfBirthById(String dateOfBirth,  String userId);
-
-    @Modifying
-    @Query(value = "update user u set u.contact_no = ?1 where u.id = ?2", nativeQuery = true)
-    void setClientContactNoById(String contactNo,  String userId);
-
-    @Modifying
-    @Query(value = "update user u set u.passport_no = ?1 where u.id = ?2", nativeQuery = true)
-    void setClientPassportNoById(String passportNo,  String userId);
-
+//    @Modifying
+//    @Query(value = "update user u set u.first_name = ?1 where u.id = ?2", nativeQuery = true)
+//    void setClientFirstNameById(String firstname,  String userId);
+//
+//    @Modifying
+//    @Query(value = "update user u set u.last_name = ?1 where u.id = ?2", nativeQuery = true)
+//    void setClientLastNameById(String lastname,  String userId);
+//
+//    @Modifying
+//    @Query(value = "update user u set u.email = ?1 where u.id = ?2", nativeQuery = true)
+//    void setClientEmailById(String email,  String userId);
+//
+//    @Modifying
+//    @Query(value = "update user u set u.password = ?1 where u.id = ?2", nativeQuery = true)
+//    void setClientPasswordById(String password,  String userId);
+//
+//    @Modifying
+//    @Query(value = "update user u set u.date_of_birth = ?1 where u.id = ?2", nativeQuery = true)
+//    void setClientDateOfBirthById(String dateOfBirth,  String userId);
+//
+//    @Modifying
+//    @Query(value = "update user u set u.contact_no = ?1 where u.id = ?2", nativeQuery = true)
+//    void setClientContactNoById(String contactNo,  String userId);
+//
+//    @Modifying
+//    @Query(value = "update user u set u.passport_no = ?1 where u.id = ?2", nativeQuery = true)
+//    void setClientPassportNoById(String passportNo,  String userId);
+//
     @Modifying
     @Query(value = "update user u set u.number_of_renting_days = ?1 where u.id = ?2", nativeQuery = true)
     void setClientNumberOfRentingDaysById(String numberOfRentingDays,  String userId);

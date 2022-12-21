@@ -26,7 +26,11 @@ public class ManagerServiceImpl implements ManagerService {
     private ManagerRepository managerRepository;
     private ManagerMapper managerMapper;
 
-
+    public ManagerServiceImpl(TokenService tokenService, ManagerRepository managerRepository, ManagerMapper managerMapper) {
+        this.tokenService = tokenService;
+        this.managerRepository = managerRepository;
+        this.managerMapper = managerMapper;
+    }
 
     @Override
     public Page<ManagerDto> findAll(Pageable pageable) {

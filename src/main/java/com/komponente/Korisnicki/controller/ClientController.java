@@ -43,9 +43,7 @@ public class ClientController {
         return new ResponseEntity<>(clientService.findAll(pageable), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Register user")
     @PostMapping
-    @CheckSecurity(roles = {"ROLE_CLIENT"})
     public ResponseEntity<ClientDto> saveClient(@RequestBody @Valid ClientCreateDto userCreateDto) {
         return new ResponseEntity<>(clientService.add(userCreateDto), HttpStatus.CREATED);
     }
