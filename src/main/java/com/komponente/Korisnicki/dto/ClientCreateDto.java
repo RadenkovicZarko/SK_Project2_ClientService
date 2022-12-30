@@ -2,6 +2,7 @@ package com.komponente.Korisnicki.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class ClientCreateDto {
@@ -20,7 +21,7 @@ public class ClientCreateDto {
     private String dateOfBirth;
     @NotBlank
     private String contactNo;
-    @NotBlank
+    @NotNull
     private Long passportNo;
 
     public String getEmail() {

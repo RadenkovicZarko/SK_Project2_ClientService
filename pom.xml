@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.6</version>
+		<version>2.2.2.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.komponente</groupId>
@@ -15,7 +15,6 @@
 	<description>Korisnicki Servis</description>
 	<properties>
 		<java.version>1.8</java.version>
-		<swagger.version>2.9.2</swagger.version>
 	</properties>
 	<dependencies>
 		<!-- Web -->
@@ -40,16 +39,6 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- Documentation -->
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>${swagger.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-			<version>${swagger.version}</version>
-		</dependency>
 		<!-- Security -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>

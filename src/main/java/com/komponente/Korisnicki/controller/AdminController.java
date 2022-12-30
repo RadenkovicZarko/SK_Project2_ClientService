@@ -6,7 +6,6 @@ import com.komponente.Korisnicki.dto.ClientForbidenDto;
 import com.komponente.Korisnicki.dto.RankDto;
 import com.komponente.Korisnicki.security.CheckSecurity;
 import com.komponente.Korisnicki.service.AdminService;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,14 +25,13 @@ public class AdminController{
         this.adminService = adminService;
     }
 
-    @ApiOperation(value = "Add rank")
+
     @PostMapping("/rank")
     @CheckSecurity(roles = {"ROLE_ADMIN"})
     public ResponseEntity<RankDto> addRank(@RequestBody @Valid RankDto rankDto) {
         return new ResponseEntity<>(adminService.add(rankDto), HttpStatus.CREATED);
     }
 
-    @ApiOperation(value = "Change forbidden")
     @PostMapping("/forbidden")
     public ResponseEntity<ClientDto>  updateForbiden(@RequestBody @Valid ClientForbidenDto clientForbidenDto) {
         return new ResponseEntity<>(adminService.updateForbiden(clientForbidenDto), HttpStatus.OK);

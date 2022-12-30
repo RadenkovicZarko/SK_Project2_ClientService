@@ -51,7 +51,7 @@ public class ClientServiceImpl implements ClientService {
     public ClientDto add(ClientCreateDto clientCreateDto) {
         Client client = clientMapper.clientCreateDtoToClient(clientCreateDto);
         clientRepository.save(client);
-        //jmsTemplate.convertAndSend(destination,messageHelper.createTextMessage(new nekiDTO));
+        jmsTemplate.convertAndSend(destination,messageHelper.createTextMessage(new FirstEmailDto((long)1,"zarkoradenkovic2@gmail.com","zarko","radenkovic")));
         return clientMapper.clientToClientDto(client);
     }
 
@@ -71,7 +71,6 @@ public class ClientServiceImpl implements ClientService {
     public ClientDto update(ClientChangeParametersDto clientChangeParametersDto) {
         Client client= clientMapper.clientChangeParametersDtoToClient(clientChangeParametersDto);
         Claims c=tokenService.parseToken(clientChangeParametersDto.getToken());
-
         clientRepository.setClientParametersById(client.getFirstName(),client.getLastName(),client.getEmail(),client.getPassword(),client.getDateOfBirth(),client.getContactNo(),client.getPassportNo().toString(),c.get("id").toString());
         Client client1 = clientRepository.findById(new Long(c.get("id").toString())).orElseThrow(() -> new NotFoundException(String
                 .format("Client not found")));
