@@ -1,9 +1,9 @@
 package com.komponente.Korisnicki.service.impl;
 
-import com.komponente.Korisnicki.dto.DiscountDto;
-import com.komponente.Korisnicki.dto.TokenRequestDto;
-import com.komponente.Korisnicki.dto.TokenResponseDto;
+import com.komponente.Korisnicki.dto.*;
 import com.komponente.Korisnicki.exception.NotFoundException;
+import com.komponente.Korisnicki.listener.helper.MessageHelper;
+import com.komponente.Korisnicki.mapper.UserMapper;
 import com.komponente.Korisnicki.model.Client;
 import com.komponente.Korisnicki.model.ClientRank;
 import com.komponente.Korisnicki.model.User;
@@ -14,6 +14,8 @@ import com.komponente.Korisnicki.service.TokenService;
 import com.komponente.Korisnicki.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -27,12 +29,22 @@ public class UserServiceImpl implements UserService {
     private TokenService tokenService;
     private ClientRepository clientRepository;
     private ClientRankRepository clientRankRepository;
+    private UserMapper userMapper;
+    private JmsTemplate jmsTemplate;
+    private MessageHelper messageHelper;
+    private String destination;
 
-    public UserServiceImpl(UserRepository userRepository, TokenService tokenService, ClientRepository clientRepository, ClientRankRepository clientRankRepository) {
+    public UserServiceImpl(UserRepository userRepository, TokenService tokenService, ClientRepository clientRepository, ClientRankRepository clientRankRepository,
+                           UserMapper userMapper, JmsTemplate jmsTemplate, MessageHelper messageHelper,
+                           @Value("${destination.emailDestination}")String destination) {
         this.userRepository = userRepository;
         this.tokenService = tokenService;
         this.clientRepository = clientRepository;
         this.clientRankRepository = clientRankRepository;
+        this.userMapper = userMapper;
+        this.jmsTemplate = jmsTemplate;
+        this.messageHelper = messageHelper;
+        this.destination = destination;
     }
 
     @Override
@@ -74,5 +86,17 @@ public class UserServiceImpl implements UserService {
                 .get()
                 .getPopust();
         return new DiscountDto(discount);
+    }
+
+    @Override
+    public UserDto updatePassword(UserChangePasswordDto userChangePasswordDto) {
+        User user=userRepository.findById(userChangePasswordDto.getId()).orElseThrow(() -> new NotFoundException(String
+                .format("User with id: %d not found.", userChangePasswordDto.getId())));
+
+        user.setPassword(userChangePasswordDto.getNewPassword());
+        userRepository.save(user);
+        UniversalEmailDto universalEmailDto=new UniversalEmailDto("PasswordChange",user.getEmail(),user.getFirstName(),user.getLastName(),"",(long)0,"","",null,null,"",user.getPassword());
+        jmsTemplate.convertAndSend(destination,messageHelper.createTextMessage(universalEmailDto));
+        return userMapper.userToUserDto(user);
     }
 }

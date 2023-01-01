@@ -15,16 +15,32 @@ public class UniversalEmailDto {
     private Date from=null;
     private Date to=null;
     private String emailOfManager="";
+    private String password;
 
     public UniversalEmailDto() {
     }
 
-    public UniversalEmailDto(String nameOfClass, String emailOfClient, String name, String lastName, String link) {
+    public UniversalEmailDto(String nameOfClass, String emailOfClient, String name, String lastName, String link, Long idVehicle, String model, String type, Date from, Date to, String emailOfManager, String password) {
         this.nameOfClass = nameOfClass;
         this.emailOfClient = emailOfClient;
         this.name = name;
         this.lastName = lastName;
         this.link = link;
+        this.idVehicle = idVehicle;
+        this.model = model;
+        this.type = type;
+        this.from = from;
+        this.to = to;
+        this.emailOfManager = emailOfManager;
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmailOfClient() {

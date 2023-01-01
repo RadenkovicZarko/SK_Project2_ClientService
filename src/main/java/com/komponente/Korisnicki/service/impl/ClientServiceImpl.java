@@ -66,7 +66,10 @@ public class ClientServiceImpl implements ClientService {
         Client client = clientMapper.clientCreateDtoToClient(clientCreateDto);
         client.setIsActivate(generatedString);
         clientRepository.save(client);
-        jmsTemplate.convertAndSend(destination,messageHelper.createTextMessage(new UniversalEmailDto("Registration",client.getEmail(),client.getFirstName(),client.getLastName(),"http://localhost:8080/api/client/"+client.getIsActivate()+"/activate")));
+        UniversalEmailDto universalEmailDto=new UniversalEmailDto("Registration",client.getEmail(),client.getFirstName(),client.getLastName(),"http://localhost:8080/api/client/"+client.getIsActivate()+"/activate",(long)0,"","",null,null,"","");
+        jmsTemplate.convertAndSend(destination,messageHelper.createTextMessage(universalEmailDto));
+
+
         //jmsTemplate.convertAndSend(destination,messageHelper.createTextMessage(new FirstEmailDto((long)1,"zarkoradenkovic2@gmail.com","zarko","radenkovic")));
         return clientMapper.clientToClientDto(client);
     }

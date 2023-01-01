@@ -63,8 +63,8 @@ public class ManagerServiceImpl implements ManagerService {
         Manager manager = managerMapper.managerCreateDtoToManager(managerCreateDto);
         manager.setIsActivate(generatedString);
         managerRepository.save(manager);
-
-        jmsTemplate.convertAndSend(destination,messageHelper.createTextMessage(new UniversalEmailDto("Registration",manager.getEmail(),manager.getFirstName(),manager.getLastName(),"http://localhost:8080/api/client/"+manager.getIsActivate()+"/activate")));
+        UniversalEmailDto universalEmailDto=new UniversalEmailDto("Registration",manager.getEmail(),manager.getFirstName(),manager.getLastName(),"http://localhost:8080/api/manager/"+manager.getIsActivate()+"/activate",(long)0,"","",null,null,"","");
+        jmsTemplate.convertAndSend(destination,messageHelper.createTextMessage(universalEmailDto));
         //jmsTemplate.convertAndSend(destination,messageHelper.createTextMessage(new FirstEmailDto((long)1,"zarkoradenkovic2@gmail.com","zarko","radenkovic")));
         return  managerMapper.managerToManagerDto(manager);
     }

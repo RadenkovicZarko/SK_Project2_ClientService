@@ -1,10 +1,7 @@
 package com.komponente.Korisnicki.controller;
 
 
-import com.komponente.Korisnicki.dto.ClientDto;
-import com.komponente.Korisnicki.dto.DiscountDto;
-import com.komponente.Korisnicki.dto.TokenRequestDto;
-import com.komponente.Korisnicki.dto.TokenResponseDto;
+import com.komponente.Korisnicki.dto.*;
 import com.komponente.Korisnicki.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +29,12 @@ public class UserController {
     @GetMapping("/{id}/discount")
     public ResponseEntity<DiscountDto> getDiscount(@PathVariable("id") Long id) {
         return new ResponseEntity<>(userService.findDiscount(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/updatePassword")
+    public ResponseEntity<UserDto> updatePassword(@RequestBody UserChangePasswordDto userChangePasswordDto)
+    {
+        return new ResponseEntity<>(userService.updatePassword(userChangePasswordDto),HttpStatus.OK);
     }
 
 }
