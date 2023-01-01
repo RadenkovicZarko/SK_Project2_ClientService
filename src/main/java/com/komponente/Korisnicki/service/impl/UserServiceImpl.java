@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
         claims.put("id", user.getId());
         claims.put("role", user.getRole().getName());
         //Generate token
-        if(user.getRole().getId()==1)
+        if(user.getRole().getId()==3)
         {
             Client client=(Client) user;
             if(client.isForbidden())

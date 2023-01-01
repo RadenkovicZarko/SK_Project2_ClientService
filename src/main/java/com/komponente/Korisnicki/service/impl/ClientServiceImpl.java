@@ -19,6 +19,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Random;
+
 @Service
 @Transactional
 public class ClientServiceImpl implements ClientService {
@@ -32,7 +36,7 @@ public class ClientServiceImpl implements ClientService {
 
 
     public ClientServiceImpl(TokenService tokenService, ClientRepository clientRepository, ClientMapper clientMapper, JmsTemplate jmsTemplate,
-                             MessageHelper messageHelper, @Value("${destination.registrationEmail}")String destination) {
+                             MessageHelper messageHelper, @Value("${destination.emailDestination}")String destination) {
         this.tokenService = tokenService;
         this.clientRepository = clientRepository;
         this.clientMapper = clientMapper;
@@ -49,11 +53,25 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientDto add(ClientCreateDto clientCreateDto) {
+        int leftLimit = 97; // letter 'a'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 32;
+        Random random = new Random();
+
+        String generatedString = random.ints(leftLimit, rightLimit + 1)
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+
         Client client = clientMapper.clientCreateDtoToClient(clientCreateDto);
+        client.setIsActivate(generatedString);
         clientRepository.save(client);
-        jmsTemplate.convertAndSend(destination,messageHelper.createTextMessage(new FirstEmailDto((long)1,"zarkoradenkovic2@gmail.com","zarko","radenkovic")));
+        jmsTemplate.convertAndSend(destination,messageHelper.createTextMessage(new UniversalEmailDto("Registration",client.getEmail(),client.getFirstName(),client.getLastName(),"http://localhost:8080/api/client/"+client.getIsActivate()+"/activate")));
+        //jmsTemplate.convertAndSend(destination,messageHelper.createTextMessage(new FirstEmailDto((long)1,"zarkoradenkovic2@gmail.com","zarko","radenkovic")));
         return clientMapper.clientToClientDto(client);
     }
+
+
 
     @Override
     public ClientDto find(TokenRequestDto tokenRequestDto) {
@@ -77,6 +95,29 @@ public class ClientServiceImpl implements ClientService {
         return clientMapper.clientToClientDto(client1);
     }
 
+    @Override
+    public ClientDto updateClientNumberOfRentingDays(ClientRentingDaysDto clientRentingDaysDto) {
+        Client client=clientRepository.findById(clientRentingDaysDto.getId()).orElseThrow(() -> new NotFoundException(String
+                .format("Client not found")));
+
+        client.setNumberOfRentingDays(client.getNumberOfRentingDays()+ clientRentingDaysDto.getNumOfDays());
+
+        clientRepository.save(client);
+
+        return clientMapper.clientToClientDto(client);
+
+    }
+
+    @Override
+    public ClientDto activateAccount(String activateString) {
+        Client client=clientRepository.findByIsActivate(activateString).orElseThrow(() -> new NotFoundException(String
+                .format("Client not found")));
+
+        client.setIsActivate("activated");
+        clientRepository.save(client);
+
+        return clientMapper.clientToClientDto(client);
+    }
 
 
 }

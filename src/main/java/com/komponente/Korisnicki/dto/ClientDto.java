@@ -9,6 +9,7 @@ public class ClientDto {
     private String username;
     private boolean forbidden;
     private int numberOfRentingDays;
+    private String activateLink;
 
     public Long getId() {
         return id;
@@ -64,5 +65,13 @@ public class ClientDto {
 
     public void setNumberOfRentingDays(int numberOfRentingDays) {
         this.numberOfRentingDays = numberOfRentingDays;
+    }
+
+    public String getActivateLink() {
+        return activateLink;
+    }
+
+    public void setActivateLink(String activateLink) {
+        this.activateLink = activateLink;
     }
 }

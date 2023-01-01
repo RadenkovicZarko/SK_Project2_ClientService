@@ -14,5 +14,9 @@ public interface ClientService {
 
     ClientDto update(ClientChangeParametersDto clientChangeParametersDto);
 
+    ClientDto updateClientNumberOfRentingDays(ClientRentingDaysDto clientRentingDaysDto);
+
+    ClientDto activateAccount(String activateString);
+
 //    DiscountDto findDiscont(String token);
 }

@@ -23,10 +23,13 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     @Modifying
     @Query(value = "update user u set u.number_of_renting_days = ?1 where u.id = ?2", nativeQuery = true)
-    void setClientNumberOfRentingDaysById(String numberOfRentingDays,  String userId);
+    void setClientNumberOfRentingDaysById(int numberOfRentingDays,  String userId);
 
 
     @Modifying
     @Query(value = "update user u set u.forbidden = ?1 where u.id = ?2", nativeQuery = true)
     void setClientForbiddenById(String forbidden,  String userId);
+
+
+    Optional<Client> findByIsActivate(String is_activate);
 }

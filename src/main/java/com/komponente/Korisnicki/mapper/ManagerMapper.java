@@ -36,7 +36,7 @@ public class ManagerMapper {
     }
 
 
-    public ManagerDto clientToClientDto(Manager manager) {
+    public ManagerDto managerToManagerDto(Manager manager) {
         ManagerDto managerDto = new ManagerDto();
         managerDto.setId(manager.getId());
         managerDto.setEmail(manager.getEmail());

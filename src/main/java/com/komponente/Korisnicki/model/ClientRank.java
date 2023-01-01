@@ -17,8 +17,7 @@ public class ClientRank {
     public ClientRank() {
     }
 
-    public ClientRank(Long id, int mini, int maksi, int popust) {
-        this.id = id;
+    public ClientRank( int mini, int maksi, int popust) {
         this.minNumberOfRentingDays = mini;
         this.maxNumberOfRentingDays = maksi;
         this.discount = popust;

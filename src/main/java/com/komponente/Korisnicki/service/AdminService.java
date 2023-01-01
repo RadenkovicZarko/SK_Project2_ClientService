@@ -5,6 +5,6 @@ import com.komponente.Korisnicki.dto.*;
 
 public interface AdminService {
 
-    RankDto add(RankDto rankCreateDto);
+    RankDto add(RankCreateDto rankCreateDto);
     ClientDto updateForbiden(ClientForbidenDto clientForbidenDto);
 }

@@ -35,4 +35,10 @@ public class ManagerController {
         return new ResponseEntity<>(managerService.add(managerCreateDto), HttpStatus.CREATED);
     }
 
+    @GetMapping("/{activateString}/activate")
+    public ResponseEntity<ManagerDto> activateAccount(@PathVariable("activateString") String activateString)
+    {
+        return new ResponseEntity<>(managerService.activateAccount(activateString),HttpStatus.OK);
+    }
+
 }

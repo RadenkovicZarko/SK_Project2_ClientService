@@ -61,6 +61,7 @@ public class ClientMapper {
         clientDto.setUsername(client.getUsername());
         clientDto.setForbidden(client.isForbidden());
         clientDto.setNumberOfRentingDays(client.getNumberOfRentingDays());
+        clientDto.setActivateLink(client.getIsActivate());
         return clientDto;
     }
 }

@@ -44,4 +44,17 @@ public class ClientController {
         return new ResponseEntity<>(clientService.update(clientChangeParametersDto), HttpStatus.OK);
     }
 
+    @PostMapping("/updateRentingDays")
+    public ResponseEntity<ClientDto> updateClientNumberOfRentingDays(@RequestBody() ClientRentingDaysDto clientRentingDaysDto)
+    {
+        System.out.println(clientRentingDaysDto.getId()+" "+ clientRentingDaysDto.getNumOfDays());
+        return new ResponseEntity<>(clientService.updateClientNumberOfRentingDays(clientRentingDaysDto),HttpStatus.OK);
+    }
+
+    @GetMapping("/{activateString}/activate")
+    public ResponseEntity<ClientDto> activateAccount(@PathVariable("activateString") String activateString)
+    {
+        return new ResponseEntity<>(clientService.activateAccount(activateString),HttpStatus.OK);
+    }
+
 }

@@ -11,12 +11,21 @@ public class Client extends User{
     private Long passportNo;
     private int numberOfRentingDays;
     private boolean forbidden;
+    private String isActivate;
 
     public Client() {
         super();
     }
 
-    public Client(Long passportNo, int numberOfRentingDays, boolean forbidden,  String email, String firstName, String lastName,
+    public Client(String email, String firstName, String lastName, String username, String password, String dateOfBirth, String contactNo, Role role, Long passportNo, int numberOfRentingDays, boolean forbidden, String isActivate) {
+        super(email, firstName, lastName, username, password, dateOfBirth, contactNo, role);
+        this.passportNo = passportNo;
+        this.numberOfRentingDays = numberOfRentingDays;
+        this.forbidden = forbidden;
+        this.isActivate = isActivate;
+    }
+
+    public Client(Long passportNo, int numberOfRentingDays, boolean forbidden, String email, String firstName, String lastName,
                   String username, String password, String dateOfBirth, String contactNo, Role role) {
         super(email,firstName,lastName,username, password, dateOfBirth,contactNo,role);
         this.passportNo = passportNo;
@@ -48,6 +57,13 @@ public class Client extends User{
         this.forbidden = forbidden;
     }
 
+    public String getIsActivate() {
+        return isActivate;
+    }
+
+    public void setIsActivate(String isActivate) {
+        this.isActivate = isActivate;
+    }
 
     @Override
     public String toString() {

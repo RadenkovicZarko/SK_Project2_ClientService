@@ -1,6 +1,7 @@
 package com.komponente.Korisnicki.service.impl;
 import com.komponente.Korisnicki.dto.ClientDto;
 import com.komponente.Korisnicki.dto.ClientForbidenDto;
+import com.komponente.Korisnicki.dto.RankCreateDto;
 import com.komponente.Korisnicki.dto.RankDto;
 import com.komponente.Korisnicki.exception.NotFoundException;
 import com.komponente.Korisnicki.mapper.ClientMapper;
@@ -29,10 +30,10 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public RankDto add(RankDto rankCreateDto) {
+    public RankDto add(RankCreateDto rankCreateDto) {
         ClientRank clientRank =rankMapper.rankDtoToRank(rankCreateDto);
         clientRankRepository.save(clientRank);
-        return rankCreateDto;
+        return rankMapper.rankToRankDto(clientRank);
     }
 
     @Override
