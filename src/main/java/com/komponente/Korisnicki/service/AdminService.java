@@ -6,5 +6,7 @@ import com.komponente.Korisnicki.dto.*;
 public interface AdminService {
 
     RankDto add(RankCreateDto rankCreateDto);
-    ClientDto updateForbiden(ClientForbidenDto clientForbidenDto);
+    UserDto updateForbiden(ClientForbidenDto clientForbidenDto);
+    FullAdminDto findByIdToUpdate(SearchUserDto id);
+    AdminDto update(AdminChangeParametersDto adminChangeParametersDto);
 }

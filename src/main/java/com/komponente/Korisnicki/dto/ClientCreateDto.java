@@ -17,8 +17,7 @@ public class ClientCreateDto {
     private String username;
     //@Length()
     private String password;
-    @NotBlank
-    private String dateOfBirth;
+    private Date dateOfBirth;
     @NotBlank
     private String contactNo;
     @NotNull
@@ -64,11 +63,11 @@ public class ClientCreateDto {
         this.password = password;
     }
 
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

@@ -41,4 +41,16 @@ public class ManagerController {
         return new ResponseEntity<>(managerService.activateAccount(activateString),HttpStatus.OK);
     }
 
+    @PostMapping("/change")
+    public ResponseEntity<ManagerDto> updateManager(@RequestBody() @Valid ManagerChangeParametersDto managerChangeParametersDto) {
+        return new ResponseEntity<>(managerService.update(managerChangeParametersDto), HttpStatus.OK);
+    }
+
+    @PostMapping("/findByIdToChange")
+    public ResponseEntity<FullManagerDto> findByIdToChange(@RequestBody SearchUserDto searchUserDto)
+    {
+        System.out.println("USAO");
+        return new ResponseEntity<>(managerService.findByIdToUpdate(searchUserDto),HttpStatus.OK);
+    }
+
 }

@@ -1,38 +1,37 @@
 package com.komponente.Korisnicki.dto;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
-public class ManagerCreateDto {
+public class FullClientDto {
 
-    @Email
+    private String token;
+
     private String email;
-    @NotBlank
+
     private String firstName;
-    @NotBlank
+
     private String lastName;
-    @NotBlank
+
     private String username;
-    //@Length()
+
     private String password;
+
     private Date dateOfBirth;
-    @NotBlank
-    private String nameOfCompany;
-    private Date dateOfEmployment;
-    @NotBlank
+
     private String contactNo;
 
-    public String getContactNo() {
-        return contactNo;
-    }
-
-    public void setContactNo(String contactNo) {
-        this.contactNo = contactNo;
-    }
+    private Long passportNo;
 
     public String getEmail() {
         return email;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public void setEmail(String email) {
@@ -79,19 +78,19 @@ public class ManagerCreateDto {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getNameOfCompany() {
-        return nameOfCompany;
+    public String getContactNo() {
+        return contactNo;
     }
 
-    public void setNameOfCompany(String nameOfCompany) {
-        this.nameOfCompany = nameOfCompany;
+    public void setContactNo(String contactNo) {
+        this.contactNo = contactNo;
     }
 
-    public Date getDateOfEmployment() {
-        return dateOfEmployment;
+    public Long getPassportNo() {
+        return passportNo;
     }
 
-    public void setDateOfEmployment(Date dateOfEmployment) {
-        this.dateOfEmployment = dateOfEmployment;
+    public void setPassportNo(Long passportNo) {
+        this.passportNo = passportNo;
     }
 }

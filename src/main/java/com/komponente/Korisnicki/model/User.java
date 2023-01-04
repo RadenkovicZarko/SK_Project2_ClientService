@@ -15,7 +15,7 @@ public class User {
     private String lastName;
     private String username;
     private String password;
-    private String dateOfBirth;
+    private Date dateOfBirth;
     private String contactNo;
     @ManyToOne(optional = false)
     private Role role;
@@ -23,7 +23,7 @@ public class User {
     public User() {
     }
 
-    public User( String email, String firstName, String lastName, String username, String password, String dateOfBirth, String contactNo, Role role) {
+    public User(String email, String firstName, String lastName, String username, String password, Date dateOfBirth, String contactNo, Role role) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -91,11 +91,11 @@ public class User {
     }
 
 
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

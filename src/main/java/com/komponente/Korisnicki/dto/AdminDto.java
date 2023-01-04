@@ -1,18 +1,19 @@
 package com.komponente.Korisnicki.dto;
 
-import com.komponente.Korisnicki.model.Role;
-
-import javax.persistence.ManyToOne;
-import java.util.Date;
-
-public class UserDto {
+public class AdminDto {
+    private Long id;
     private String email;
     private String firstName;
     private String lastName;
     private String username;
-    private String password;
-    private Date dateOfBirth;
-    private String contactNo;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;
@@ -44,30 +45,6 @@ public class UserDto {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getContactNo() {
-        return contactNo;
-    }
-
-    public void setContactNo(String contactNo) {
-        this.contactNo = contactNo;
     }
 
 }

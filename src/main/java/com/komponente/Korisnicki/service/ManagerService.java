@@ -9,5 +9,8 @@ public interface ManagerService {
     Page<ManagerDto> findAll(Pageable pageable);
     ManagerDto add(ManagerCreateDto managerCreateDto);
     ManagerDto activateAccount(String activateString);
+    ManagerDto update(ManagerChangeParametersDto managerChangeParametersDto);
+
+    FullManagerDto findByIdToUpdate(SearchUserDto id);
 
 }

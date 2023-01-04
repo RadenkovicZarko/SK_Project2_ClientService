@@ -7,7 +7,7 @@ import java.util.Date;
 @DiscriminatorValue("Menager")
 public class Manager extends User{
     private String nameOfCompany;
-    private String dateOfEmployment;
+    private Date dateOfEmployment;
     private boolean forbidden;
     private String isActivate;
 
@@ -24,7 +24,7 @@ public class Manager extends User{
         this.isActivate = isActivate;
     }
 
-    public Manager(String email, String firstName, String lastName, String username, String password, String dateOfBirth, String contactNo, Role role, String nameOfCompany, String dateOfEmployment, boolean forbidden, String isActivate) {
+    public Manager(String email, String firstName, String lastName, String username, String password, Date dateOfBirth, String contactNo, Role role, String nameOfCompany, Date dateOfEmployment, boolean forbidden, String isActivate) {
         super(email, firstName, lastName, username, password, dateOfBirth, contactNo, role);
         this.nameOfCompany = nameOfCompany;
         this.dateOfEmployment = dateOfEmployment;
@@ -40,11 +40,11 @@ public class Manager extends User{
         this.nameOfCompany = nameOfCompany;
     }
 
-    public String getDateOfEmployment() {
+    public Date getDateOfEmployment() {
         return dateOfEmployment;
     }
 
-    public void setDateOfEmployment(String dateOfEmployment) {
+    public void setDateOfEmployment(Date dateOfEmployment) {
         this.dateOfEmployment = dateOfEmployment;
     }
 

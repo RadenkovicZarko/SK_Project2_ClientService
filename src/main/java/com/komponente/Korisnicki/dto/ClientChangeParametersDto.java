@@ -1,6 +1,7 @@
 package com.komponente.Korisnicki.dto;
 
 import javax.validation.constraints.NotBlank;
+import java.util.Date;
 
 public class ClientChangeParametersDto {
 
@@ -15,9 +16,7 @@ public class ClientChangeParametersDto {
 
     private String username;
 
-    private String password;
-
-    private String dateOfBirth;
+    private Date dateOfBirth;
 
     private String contactNo;
 
@@ -55,19 +54,12 @@ public class ClientChangeParametersDto {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

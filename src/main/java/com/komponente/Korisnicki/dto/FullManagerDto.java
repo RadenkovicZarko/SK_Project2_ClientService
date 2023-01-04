@@ -1,34 +1,34 @@
 package com.komponente.Korisnicki.dto;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
-public class ManagerCreateDto {
+public class FullManagerDto {
+    @NotBlank
+    private String token;
 
-    @Email
     private String email;
-    @NotBlank
+
     private String firstName;
-    @NotBlank
+
     private String lastName;
-    @NotBlank
+
     private String username;
-    //@Length()
-    private String password;
+
     private Date dateOfBirth;
-    @NotBlank
-    private String nameOfCompany;
-    private Date dateOfEmployment;
-    @NotBlank
+
     private String contactNo;
 
-    public String getContactNo() {
-        return contactNo;
+    private Date dateOfEmployment;
+
+    private String password;
+
+    public String getToken() {
+        return token;
     }
 
-    public void setContactNo(String contactNo) {
-        this.contactNo = contactNo;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getEmail() {
@@ -63,14 +63,6 @@ public class ManagerCreateDto {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
@@ -79,12 +71,12 @@ public class ManagerCreateDto {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getNameOfCompany() {
-        return nameOfCompany;
+    public String getContactNo() {
+        return contactNo;
     }
 
-    public void setNameOfCompany(String nameOfCompany) {
-        this.nameOfCompany = nameOfCompany;
+    public void setContactNo(String contactNo) {
+        this.contactNo = contactNo;
     }
 
     public Date getDateOfEmployment() {
@@ -93,5 +85,13 @@ public class ManagerCreateDto {
 
     public void setDateOfEmployment(Date dateOfEmployment) {
         this.dateOfEmployment = dateOfEmployment;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

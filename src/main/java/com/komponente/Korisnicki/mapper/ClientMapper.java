@@ -3,6 +3,7 @@ package com.komponente.Korisnicki.mapper;
 import com.komponente.Korisnicki.dto.ClientChangeParametersDto;
 import com.komponente.Korisnicki.dto.ClientCreateDto;
 import com.komponente.Korisnicki.dto.ClientDto;
+import com.komponente.Korisnicki.dto.FullClientDto;
 import com.komponente.Korisnicki.model.Client;
 import com.komponente.Korisnicki.repository.RoleRepository;
 import org.springframework.stereotype.Component;
@@ -40,7 +41,7 @@ public class ClientMapper {
         client.setFirstName(clientChangeParametersDto.getFirstName());
         client.setLastName(clientChangeParametersDto.getLastName());
         client.setUsername(clientChangeParametersDto.getUsername());
-        client.setPassword(clientChangeParametersDto.getPassword());
+
         client.setDateOfBirth(clientChangeParametersDto.getDateOfBirth());
         client.setContactNo(clientChangeParametersDto.getContactNo());
         client.setRole(roleRepository.findRoleByName("ROLE_CLIENT").get());
@@ -63,5 +64,20 @@ public class ClientMapper {
         clientDto.setNumberOfRentingDays(client.getNumberOfRentingDays());
         clientDto.setActivateLink(client.getIsActivate());
         return clientDto;
+    }
+
+
+    public FullClientDto clientToFullClientDto(Client client)
+    {
+        FullClientDto fullClientDto=new FullClientDto();
+        fullClientDto.setEmail(client.getEmail());
+        fullClientDto.setFirstName(client.getFirstName());
+        fullClientDto.setLastName(client.getLastName());
+        fullClientDto.setUsername(client.getUsername());
+        fullClientDto.setPassword(client.getPassword());
+        fullClientDto.setDateOfBirth(client.getDateOfBirth());
+        fullClientDto.setContactNo(client.getContactNo());
+        fullClientDto.setPassportNo(client.getPassportNo());
+        return fullClientDto;
     }
 }

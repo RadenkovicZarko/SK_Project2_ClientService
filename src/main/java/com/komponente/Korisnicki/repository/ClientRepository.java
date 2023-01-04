@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Repository
@@ -17,8 +18,8 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     //METODA RADI  UPDATE imena prezimena ZA ODREDJENI ID, VIDETI KAKO DA SE NAPRAVI UPDATE SAMO ZA ELEMENTE KOJI NISU NULL
     @Modifying
-    @Query(value = "update user u set u.first_name = ?1, u.last_name = ?2,u.email = ?3,u.password = ?4,u.date_of_birth = ?5,u.contact_no = ?6,u.passport_no = ?7 where u.id = ?8", nativeQuery = true)
-    void setClientParametersById(String firstname,String lastname,String email,String password,String dateOfBirth,String contactNo,String passportNo,  String userId);
+    @Query(value = "update user u set u.first_name = ?1, u.last_name = ?2,u.email = ?3,u.date_of_birth = ?4,u.contact_no = ?5,u.passport_no = ?6, u.username = ?7 where u.id = ?8", nativeQuery = true)
+    void setClientParametersById(String firstname, String lastname, String email,  Date dateOfBirth, String contactNo, String passportNo,String username, String userId);
 
 
     @Modifying

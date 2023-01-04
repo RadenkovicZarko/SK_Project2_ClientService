@@ -80,4 +80,22 @@ public class ManagerServiceImpl implements ManagerService {
         return managerMapper.managerToManagerDto(manager);
     }
 
+    @Override
+    public ManagerDto update(ManagerChangeParametersDto managerChangeParametersDto) {
+        Manager manager= managerMapper.managerChangeParametersDtoToManager(managerChangeParametersDto);
+        Claims c=tokenService.parseToken(managerChangeParametersDto.getToken());
+        managerRepository.setManagerParametersById(manager.getFirstName(),manager.getLastName(),manager.getEmail(),manager.getDateOfBirth(),manager.getContactNo(),manager.getDateOfEmployment(),manager.getUsername(),c.get("id").toString());
+        Manager manager1 = managerRepository.findById(new Long(c.get("id").toString())).orElseThrow(() -> new NotFoundException(String
+                .format("Client not found")));
+        return managerMapper.managerToManagerDto(manager1);
+    }
+
+    @Override
+    public FullManagerDto findByIdToUpdate(SearchUserDto id) {
+       Manager manager=managerRepository.findById(id.getId()).orElseThrow(() -> new NotFoundException(String
+                .format("Manager not found")));
+        return managerMapper.managerToFullManagerDto(manager);
+    }
+
+
 }

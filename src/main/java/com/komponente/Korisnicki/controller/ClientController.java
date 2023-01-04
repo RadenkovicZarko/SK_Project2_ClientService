@@ -1,7 +1,6 @@
 package com.komponente.Korisnicki.controller;
 
 import com.komponente.Korisnicki.dto.*;
-import com.komponente.Korisnicki.model.Client;
 import com.komponente.Korisnicki.security.CheckSecurity;
 import com.komponente.Korisnicki.service.ClientService;
 
@@ -40,7 +39,7 @@ public class ClientController {
 
     //PRIMA DVA PARAMETRA, NE ZNAM KAKO DA JOJ PROSLEDIM OBA U POSTMANU
     @PostMapping("/change")
-    public ResponseEntity<ClientDto> updateClient(@RequestHeader("Authorization") String authorization,@RequestBody() @Valid ClientChangeParametersDto clientChangeParametersDto) {
+    public ResponseEntity<ClientDto> updateClient(@RequestBody() @Valid ClientChangeParametersDto clientChangeParametersDto) {
         return new ResponseEntity<>(clientService.update(clientChangeParametersDto), HttpStatus.OK);
     }
 
@@ -56,5 +55,13 @@ public class ClientController {
     {
         return new ResponseEntity<>(clientService.activateAccount(activateString),HttpStatus.OK);
     }
+
+    @PostMapping("/findByIdToChange")
+    public ResponseEntity<FullClientDto> findByIdToChange(@RequestBody SearchUserDto searchUserDto)
+    {
+        return new ResponseEntity<>(clientService.findByIdToUpdate(searchUserDto),HttpStatus.OK);
+    }
+
+
 
 }

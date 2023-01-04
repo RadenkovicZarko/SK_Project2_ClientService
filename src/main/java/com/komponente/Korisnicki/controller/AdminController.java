@@ -1,9 +1,6 @@
 package com.komponente.Korisnicki.controller;
 
-import com.komponente.Korisnicki.dto.ClientDto;
-import com.komponente.Korisnicki.dto.ClientForbidenDto;
-import com.komponente.Korisnicki.dto.RankCreateDto;
-import com.komponente.Korisnicki.dto.RankDto;
+import com.komponente.Korisnicki.dto.*;
 import com.komponente.Korisnicki.security.CheckSecurity;
 import com.komponente.Korisnicki.service.AdminService;
 import org.springframework.http.HttpStatus;
@@ -31,9 +28,20 @@ public class AdminController{
 
     @PostMapping("/forbidden")
     @CheckSecurity(roles = {"ROLE_ADMIN"})
-    public ResponseEntity<ClientDto>  updateForbiden(@RequestHeader("Authorization") String authorization,@RequestBody @Valid ClientForbidenDto clientForbidenDto) {
+    public ResponseEntity<UserDto>  updateForbiden(@RequestHeader("Authorization") String authorization,@RequestBody @Valid ClientForbidenDto clientForbidenDto) {
+
         return new ResponseEntity<>(adminService.updateForbiden(clientForbidenDto), HttpStatus.OK);
     }
 
+    @PostMapping("/change")
+    public ResponseEntity<AdminDto> updateClient(@RequestBody() @Valid AdminChangeParametersDto adminChangeParametersDto) {
+        return new ResponseEntity<>(adminService.update(adminChangeParametersDto), HttpStatus.OK);
+    }
+
+    @PostMapping("/findByIdToChange")
+    public ResponseEntity<FullAdminDto> findByIdToChange(@RequestBody SearchUserDto searchUserDto)
+    {
+        return new ResponseEntity<>(adminService.findByIdToUpdate(searchUserDto),HttpStatus.OK);
+    }
 
 }

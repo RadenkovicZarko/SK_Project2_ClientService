@@ -1,9 +1,6 @@
 package com.komponente.Korisnicki.mapper;
 
-import com.komponente.Korisnicki.dto.ClientCreateDto;
-import com.komponente.Korisnicki.dto.ClientDto;
-import com.komponente.Korisnicki.dto.ManagerCreateDto;
-import com.komponente.Korisnicki.dto.ManagerDto;
+import com.komponente.Korisnicki.dto.*;
 import com.komponente.Korisnicki.model.Client;
 import com.komponente.Korisnicki.model.Manager;
 import com.komponente.Korisnicki.repository.RoleRepository;
@@ -45,4 +42,32 @@ public class ManagerMapper {
         managerDto.setUsername(manager.getUsername());
         return managerDto;
     }
+
+    public Manager managerChangeParametersDtoToManager(ManagerChangeParametersDto managerChangeParametersDto)
+    {
+        Manager manager=new Manager();
+        manager.setEmail(managerChangeParametersDto.getEmail());
+        manager.setFirstName(managerChangeParametersDto.getFirstName());
+        manager.setLastName(managerChangeParametersDto.getLastName());
+        manager.setUsername(managerChangeParametersDto.getUsername());
+        manager.setDateOfBirth(managerChangeParametersDto.getDateOfBirth());
+        manager.setContactNo(managerChangeParametersDto.getContactNo());
+        manager.setDateOfEmployment(managerChangeParametersDto.getDateOfEmployment());
+        return manager;
+    }
+
+    public FullManagerDto managerToFullManagerDto(Manager manager)
+    {
+        FullManagerDto fullManagerDto=new FullManagerDto();
+        fullManagerDto.setEmail(manager.getEmail());
+        fullManagerDto.setFirstName(manager.getFirstName());
+        fullManagerDto.setLastName(manager.getLastName());
+        fullManagerDto.setUsername(manager.getUsername());
+        fullManagerDto.setDateOfBirth(manager.getDateOfBirth());
+        fullManagerDto.setContactNo(manager.getContactNo());
+        fullManagerDto.setDateOfEmployment(manager.getDateOfEmployment());
+        fullManagerDto.setPassword(manager.getPassword());
+        return fullManagerDto;
+    }
 }
+

@@ -5,12 +5,11 @@ import com.komponente.Korisnicki.exception.NotFoundException;
 import com.komponente.Korisnicki.listener.helper.MessageHelper;
 import com.komponente.Korisnicki.mapper.ClientMapper;
 import com.komponente.Korisnicki.model.Client;
-import com.komponente.Korisnicki.model.User;
 import com.komponente.Korisnicki.repository.ClientRepository;
 import com.komponente.Korisnicki.service.ClientService;
 import com.komponente.Korisnicki.service.TokenService;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -19,8 +18,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
 @Service
@@ -79,9 +76,9 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientDto find(TokenRequestDto tokenRequestDto) {
         Client client = clientRepository
-                .findClientByUsernameAndPassword(tokenRequestDto.getUsername(), tokenRequestDto.getPassword())
+                .findClientByUsernameAndPassword(tokenRequestDto.getEmail(), tokenRequestDto.getPassword())
                 .orElseThrow(() -> new NotFoundException(String
-                        .format("Client with username: %s and password: %s not found.", tokenRequestDto.getUsername(),
+                        .format("Client with email: %s and password: %s not found.", tokenRequestDto.getEmail(),
                                 tokenRequestDto.getPassword())));
         return clientMapper.clientToClientDto(client);
     }
@@ -92,11 +89,13 @@ public class ClientServiceImpl implements ClientService {
     public ClientDto update(ClientChangeParametersDto clientChangeParametersDto) {
         Client client= clientMapper.clientChangeParametersDtoToClient(clientChangeParametersDto);
         Claims c=tokenService.parseToken(clientChangeParametersDto.getToken());
-        clientRepository.setClientParametersById(client.getFirstName(),client.getLastName(),client.getEmail(),client.getPassword(),client.getDateOfBirth(),client.getContactNo(),client.getPassportNo().toString(),c.get("id").toString());
+        clientRepository.setClientParametersById(client.getFirstName(),client.getLastName(),client.getEmail(),client.getDateOfBirth(),client.getContactNo(),client.getPassportNo().toString(),client.getUsername(),c.get("id").toString());
         Client client1 = clientRepository.findById(new Long(c.get("id").toString())).orElseThrow(() -> new NotFoundException(String
                 .format("Client not found")));
         return clientMapper.clientToClientDto(client1);
     }
+
+
 
     @Override
     public ClientDto updateClientNumberOfRentingDays(ClientRentingDaysDto clientRentingDaysDto) {
@@ -120,6 +119,14 @@ public class ClientServiceImpl implements ClientService {
         clientRepository.save(client);
 
         return clientMapper.clientToClientDto(client);
+    }
+
+    @Override
+    public FullClientDto findByIdToUpdate(SearchUserDto id) {
+        Client client=clientRepository.findById(id.getId()).orElseThrow(() -> new NotFoundException(String
+                .format("Client not found")));
+        return clientMapper.clientToFullClientDto(client);
+
     }
 
 

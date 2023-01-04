@@ -18,5 +18,7 @@ public interface ClientService {
 
     ClientDto activateAccount(String activateString);
 
+    FullClientDto findByIdToUpdate(SearchUserDto id);
+
 //    DiscountDto findDiscont(String token);
 }
