@@ -2,6 +2,7 @@ package com.komponente.Korisnicki.controller;
 
 
 import com.komponente.Korisnicki.dto.*;
+import com.komponente.Korisnicki.exception.NotFoundException;
 import com.komponente.Korisnicki.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,14 +24,22 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<TokenResponseDto> loginUser(@RequestBody @Valid TokenRequestDto tokenRequestDto) {
-        System.out.println("Usao123456");
+
         return new ResponseEntity<>(userService.login(tokenRequestDto), HttpStatus.OK);
     }
 
 
     @GetMapping("/{id}/discount")
     public ResponseEntity<DiscountDto> getDiscount(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(userService.findDiscount(id), HttpStatus.OK);
+        try {
+            ResponseEntity<DiscountDto> discountDtoResponseEntity=new ResponseEntity<>(userService.findDiscount(id), HttpStatus.OK);
+            return discountDtoResponseEntity;
+        }
+        catch (NotFoundException e)
+        {
+            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        }
+
     }
     @GetMapping("/{id}/find")
     public ResponseEntity<UserReservationDto> findById(@PathVariable("id") Long id) {

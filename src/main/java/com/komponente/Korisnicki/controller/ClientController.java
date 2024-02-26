@@ -33,6 +33,7 @@ public class ClientController {
 
     @PostMapping
     public ResponseEntity<ClientDto> saveClient(@RequestBody @Valid ClientCreateDto userCreateDto) {
+        System.out.println("DESILO SE");
         return new ResponseEntity<>(clientService.add(userCreateDto), HttpStatus.CREATED);
     }
 

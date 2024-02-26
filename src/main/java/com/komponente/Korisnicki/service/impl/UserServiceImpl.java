@@ -78,11 +78,11 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public DiscountDto findDiscount(Long id) {
+    public DiscountDto findDiscount(Long id){
         Client client = clientRepository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException(String
-                        .format("Client with id: %d not found.", id)));
+                        .format("User with id: %d not found.", id)));
         List<ClientRank> userStatusList = clientRankRepository.findAll();
         //get discount
         int discount;
